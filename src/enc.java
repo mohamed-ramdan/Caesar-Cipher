@@ -9,6 +9,7 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
@@ -48,8 +49,6 @@ public class enc extends javax.swing.JFrame {
     private void initComponents() {
 
         jButton1 = new javax.swing.JButton();
-        enc_key = new javax.swing.JTextField();
-        jLabel1 = new javax.swing.JLabel();
         enc_start = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
         dec_start = new javax.swing.JButton();
@@ -57,8 +56,6 @@ public class enc extends javax.swing.JFrame {
         jButton1.setText("jButton1");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-
-        jLabel1.setText("Key:");
 
         enc_start.setText("Start Encryption");
         enc_start.addActionListener(new java.awt.event.ActionListener() {
@@ -90,29 +87,22 @@ public class enc extends javax.swing.JFrame {
                 .addComponent(jButton2)
                 .addGap(20, 20, 20))
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(enc_key, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(68, 68, 68)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(dec_start)
-                    .addComponent(enc_start))
-                .addContainerGap(45, Short.MAX_VALUE))
+                .addGap(27, 27, 27)
+                .addComponent(enc_start)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 70, Short.MAX_VALUE)
+                .addComponent(dec_start)
+                .addGap(53, 53, 53))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jButton2)
-                .addGap(37, 37, 37)
+                .addGap(66, 66, 66)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(enc_key, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(enc_start))
-                .addGap(54, 54, 54)
-                .addComponent(dec_start)
-                .addContainerGap(110, Short.MAX_VALUE))
+                    .addComponent(enc_start)
+                    .addComponent(dec_start))
+                .addContainerGap(164, Short.MAX_VALUE))
         );
 
         pack();
@@ -209,17 +199,17 @@ public class enc extends javax.swing.JFrame {
                 
                 
                 int cisarKey;
-                if(enc_key.getText() == null || enc_key.getText().trim().isEmpty())
-                {
+//                if(enc_key.getText() == null || enc_key.getText().trim().isEmpty())
+//                {
                     String cisarKeyString = JOptionPane.showInputDialog(this,
                         "What is your Key?", null);
                     cisarKey = Integer.parseInt(cisarKeyString);
                     
-                }
-                else
-                {
-                    cisarKey = Integer.parseInt(enc_key.getText());
-                }
+//                }
+//                else
+//                {
+//                    cisarKey = Integer.parseInt(enc_key.getText());
+//                }
                  
                 
                 //System.out.println("ZZZZZZZZZZz key " + cisarKey);
@@ -349,6 +339,33 @@ public class enc extends javax.swing.JFrame {
             indexDic.put(24,'y');
             indexDic.put(25,'z');
             
+            Map<Character, Integer> letterDic = new HashMap<Character, Integer>();
+            letterDic.put('a',0);
+            letterDic.put('b',1);
+            letterDic.put('c',2);
+            letterDic.put('d',3);
+            letterDic.put('e',4);
+            letterDic.put('f',5);
+            letterDic.put('g',6);
+            letterDic.put('h',7);
+            letterDic.put('i',8);
+            letterDic.put('j',9);
+            letterDic.put('k',10);
+            letterDic.put('l',11);
+            letterDic.put('m',12);
+            letterDic.put('n',13);
+            letterDic.put('o',14);
+            letterDic.put('p',15);
+            letterDic.put('q',16);
+            letterDic.put('r',17);
+            letterDic.put('s',18);
+            letterDic.put('t',19);
+            letterDic.put('u',20);
+            letterDic.put('v',21);
+            letterDic.put('w',22);
+            letterDic.put('x',23);
+            letterDic.put('y',24);
+            letterDic.put('z',25);
             
             try
             {
@@ -360,7 +377,7 @@ public class enc extends javax.swing.JFrame {
                 System.out.println(new String(b));
                 
                 char result [] = new String(b).toLowerCase().toCharArray();
-            
+                ArrayList<Character> finalResult  = new ArrayList<Character>();
                 // get character frequencies starts
                 
                 Map<Character, Integer> defaultCharsFreq = new HashMap<Character, Integer>();
@@ -434,78 +451,143 @@ public class enc extends javax.swing.JFrame {
                 }
                 
                 
-                // get sum of default * letters freq
-                int sumOfDefaultAndEncFreq=0;
-                for (int i =0; i< defaultCharsFreq.size(); i++)
+                // KKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKK
+                
+                int key=0;
+                ArrayList<Double> estimationKeys = new ArrayList<Double>();
+                
+                
+                
+                // KKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKK
+                
+               //.. Psudo Code here
+                // for each case from 1 - 26
+                // 1-  Arraylist<int> = getmyFreqList(int key, map encCharsFreq);
+                // 2-  method take the array list and map default freq retun int sum default * actual 
+                //     getSumMultFreqDefuActu(Map defaultFreq, ArrayList actualFreq, ndexDic)
+                // 3-  int getSumOfDefuFreq()
+                // 4-  int getSumOfMsgFreq() done//
+                // 5- double getSumOfDefuFreqPow2()
+                // 6- double getSumOfMsgFreqPow2()
+                
+                
+                
+                
+                // KKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKK
+                
+                for(int i = 1; i<26; i++)
                 {
-                    sumOfDefaultAndEncFreq += defaultCharsFreq.get(indexDic.get(i)) * encCharsFreq.get(indexDic.get(i));
+                    ArrayList<Integer> MsgFreqKeyBased = getmyFreqList(i, encCharsFreq);
+                    int SumOfMultiDefuFreqToMsgFreqKeyBased = getSumMultFreqDefuActu(defaultCharsFreq,MsgFreqKeyBased,indexDic);
+                    int DefuFreqSum = getSumOfDefuFreq(defaultCharsFreq, indexDic);
+                    int MsgFreqSum = getSumOfMsgFreq(encCharsFreq, indexDic);
+                    double DefuFreqSumPow2 = getSumOfDefuFreqPow2(defaultCharsFreq, indexDic);
+                    double MsgFreqSumPow2 = getSumOfMsgFreqPow2(encCharsFreq, indexDic);
+
+
+
+                    // Power of sumDefault
+                    double powerOfSumDefault = DefuFreqSum * DefuFreqSum;
+
+                    // power of sumEncChar
+                    double powerOfSumEncChar = MsgFreqSum * MsgFreqSum;
+
+                    // 1st square root of x
+                    double xSqrt = Math.sqrt(26 * DefuFreqSumPow2 - powerOfSumDefault);
+
+                    // 2nd square root of y
+                    double ySqrt = Math.sqrt(26 * MsgFreqSumPow2 - powerOfSumEncChar);
+
+
+                    double totalTop = 26 * SumOfMultiDefuFreqToMsgFreqKeyBased - DefuFreqSum  * MsgFreqSum;
+
+                    double totalBottom = xSqrt * ySqrt;
+
+                    double total = totalTop / totalBottom;
+
+
+                    System.out.println(total); 
+                    estimationKeys.add(total);
+                    
                 }
-                //System.out.println("The Sum of all freq = " + sumOfDefaultAndEncFreq);
                 
                 
-                // get sum of default freq
-                int sumOfDefaultFreq =0;
-                for(int incre=0; incre < defaultCharsFreq.size(); incre++)
+                System.out.println("End of calculation");
+                
+                double maxVal=estimationKeys.get(0);
+                int indexOfMaxVal =0;
+                for(int i=0; i<estimationKeys.size()-1; i++)
                 {
-                    sumOfDefaultFreq += defaultCharsFreq.get(indexDic.get(incre));
+                    if(estimationKeys.get(i+1) > maxVal)
+                    {
+                        maxVal=estimationKeys.get(i+1);
+                        indexOfMaxVal=estimationKeys.indexOf(maxVal);
+                    }
                 }
-                //System.out.println("The Sum of all freq = " + xx);
-         
+                System.out.println("###################################3");
+                System.out.println("Max Vale is: "+ maxVal + " , and Index of it is: " +indexOfMaxVal);
+                System.out.println("And the Key is: "+ (25 - indexOfMaxVal));
+                int theKey = 25 - indexOfMaxVal;
                 
                 
-                // get sum of letters freq
-                int sumOfEncCharFreq = 0;
-                for(int incre=0; incre < encCharsFreq.size(); incre++)
+                
+                
+                
+                for(int i=0; i< result.length-1;i++)
                 {
-                    sumOfEncCharFreq += encCharsFreq.get(indexDic.get(incre));
+                    if(! letterDic.containsKey(result[i]))
+                    {   
+                        finalResult.add(result[i]);
+                    }
+                    else
+                    {
+                        // cisar cipher euqtion 
+                        int charElementIndex = letterDic.get(result[i]);
+                        int charElementIndexWithKey = charElementIndex - theKey;
+                        int encIndex = charElementIndexWithKey % 26; 
+                        finalResult.add(indexDic.get(encIndex));
+                        
+                    }
                 }
                 
-                
-                // get sum of default freq powered to 2
-                double sumOfDefaultPoweredToTwo=0;
-                for (int i =0; i< defaultCharsFreq.size(); i++)
+                for(int i = 0; i< finalResult.size(); i++)
                 {
-                    sumOfDefaultPoweredToTwo += defaultCharsFreq.get(indexDic.get(i)) * defaultCharsFreq.get(indexDic.get(i));
+                    if(finalResult.get(i) == null)
+                    {
+                        finalResult.set(i, ' ');
+                    }
                 }
-                
-                // get sum of letters freq powered to 2
-                double sumOfEncCharPoweredToTwo=0;
-                for (int i =0; i< encCharsFreq.size(); i++)
+                for(int i = 0; i< finalResult.size(); i++)
                 {
-                    sumOfEncCharPoweredToTwo += encCharsFreq.get(indexDic.get(i)) * encCharsFreq.get(indexDic.get(i));
+                    System.out.print(finalResult.get(i));
                 }
                 
-                
-                // Power of sumDefault
-                double powerOfSumDefault = sumOfDefaultFreq * sumOfDefaultFreq;
-                
-                // power of sumEncChar
-                double powerOfSumEncChar = sumOfEncCharFreq * sumOfEncCharFreq;
-                
-                // 1st square root of x
-                double xSqrt = Math.sqrt(26 * sumOfDefaultPoweredToTwo - powerOfSumDefault);
-                
-                // 2nd square root of y
-                double ySqrt = Math.sqrt(26 * sumOfEncCharPoweredToTwo - powerOfSumEncChar);
-                
-                
-                double totalTop = 26 * sumOfDefaultAndEncFreq - sumOfDefaultFreq  * sumOfEncCharFreq;
-                
-                double totalBottom = xSqrt * ySqrt;
-                
-                double total = totalTop / totalBottom;
-                
-                
-                System.out.println(total); 
-                
-                //System.out.println("The Sum of all freq = " + sumOfEncCharFreq);
-                // get character frequiences ends  
-                
-                
-                
-                
+              
                 fis.close();
             
+                
+                int dialogResult = JOptionPane.showConfirmDialog (null,
+                        "Would You Like to Export the Decrypted text to a file? ","Attention Please!",0);
+                if(dialogResult == JOptionPane.YES_OPTION)
+                {
+                    
+                    JFileChooser fc = new JFileChooser();
+                    if(fc.showSaveDialog(this)==JFileChooser.APPROVE_OPTION)
+                    {
+                
+                       
+                            String paths = fc.getSelectedFile().getPath();
+                            FileOutputStream fos = new FileOutputStream(paths);
+                            //byte[] b = ta.getText().getBytes();
+                            for(int i = 0; i< finalResult.size(); i++)
+                            {
+                                fos.write(finalResult.get(i));
+                            }
+                            fos.close();
+                        
+                    }
+                }    
+                
             }
             catch(IOException e)
                 {
@@ -514,12 +596,808 @@ public class enc extends javax.swing.JFrame {
                 }
         
             
+             
+            
+            
         }
         
         
         
     }//GEN-LAST:event_dec_startActionPerformed
 
+    
+    private double getSumOfMsgFreqPow2(Map<Character, Integer> encCharsFreq, Map<Integer, Character> indexDic)
+    {
+        double sumOfEncCharPoweredToTwo=0;
+        for (int i =0; i< encCharsFreq.size(); i++)
+        {
+            sumOfEncCharPoweredToTwo += encCharsFreq.get(indexDic.get(i)) * encCharsFreq.get(indexDic.get(i));
+        }
+        return sumOfEncCharPoweredToTwo;
+    }
+    
+    
+    private double getSumOfDefuFreqPow2(Map<Character, Integer> defaultCharsFreq, Map<Integer, Character> indexDic)
+    {
+        double sumOfDefaultPoweredToTwo=0;
+        for (int i =0; i< defaultCharsFreq.size(); i++)
+        {
+            sumOfDefaultPoweredToTwo += defaultCharsFreq.get(indexDic.get(i)) * defaultCharsFreq.get(indexDic.get(i));
+        }
+        return sumOfDefaultPoweredToTwo;
+    
+    }
+    
+    
+    
+    private int getSumOfMsgFreq(Map<Character, Integer> encCharsFreq, Map<Integer, Character> indexDic)
+    {
+        int sumOfEncCharFreq = 0;
+        for(int incre=0; incre < encCharsFreq.size(); incre++)
+        {
+            sumOfEncCharFreq += encCharsFreq.get(indexDic.get(incre));
+        }
+        return sumOfEncCharFreq;
+    }
+    
+    private int getSumOfDefuFreq(Map<Character, Integer> defaultCharsFreq, Map<Integer, Character> indexDic)
+    {
+        int sumOfDefaultFreq =0;
+        for(int incre=0; incre < defaultCharsFreq.size(); incre++)
+        {
+            sumOfDefaultFreq += defaultCharsFreq.get(indexDic.get(incre));
+        }
+        return sumOfDefaultFreq;
+    }
+    
+    
+    
+    private int getSumMultFreqDefuActu(Map<Character, Integer> defaultFreq, ArrayList<Integer> actualFreq, Map<Integer, Character> indexDic)
+    {
+        int sumOfDefaultAndEncFreq=0;
+                for (int i =0; i< defaultFreq.size(); i++)
+                {
+                    sumOfDefaultAndEncFreq += defaultFreq.get(indexDic.get(i)) * actualFreq.get(i);
+                }
+        return sumOfDefaultAndEncFreq;
+    }
+    
+    private ArrayList<Integer> getmyFreqList(int key, Map<Character, Integer> encCharsFreq )
+    {
+        ArrayList<Integer> newFreqCorr_key1 = new ArrayList<Integer>();
+        newFreqCorr_key1.clear();
+        if(key == 1 )
+        {
+            newFreqCorr_key1.add(encCharsFreq.get('z'));
+            newFreqCorr_key1.add(encCharsFreq.get('a'));
+            newFreqCorr_key1.add(encCharsFreq.get('b'));
+            newFreqCorr_key1.add(encCharsFreq.get('c'));
+            newFreqCorr_key1.add(encCharsFreq.get('d'));
+            newFreqCorr_key1.add(encCharsFreq.get('e'));
+            newFreqCorr_key1.add(encCharsFreq.get('f'));
+            newFreqCorr_key1.add(encCharsFreq.get('g'));
+            newFreqCorr_key1.add(encCharsFreq.get('h'));
+            newFreqCorr_key1.add(encCharsFreq.get('i'));
+            newFreqCorr_key1.add(encCharsFreq.get('j'));
+            newFreqCorr_key1.add(encCharsFreq.get('k'));
+            newFreqCorr_key1.add(encCharsFreq.get('l'));
+            newFreqCorr_key1.add(encCharsFreq.get('m'));
+            newFreqCorr_key1.add(encCharsFreq.get('n'));
+            newFreqCorr_key1.add(encCharsFreq.get('o'));
+            newFreqCorr_key1.add(encCharsFreq.get('p'));
+            newFreqCorr_key1.add(encCharsFreq.get('q'));
+            newFreqCorr_key1.add(encCharsFreq.get('r'));
+            newFreqCorr_key1.add(encCharsFreq.get('s'));
+            newFreqCorr_key1.add(encCharsFreq.get('t'));
+            newFreqCorr_key1.add(encCharsFreq.get('u'));
+            newFreqCorr_key1.add(encCharsFreq.get('v'));
+            newFreqCorr_key1.add(encCharsFreq.get('w'));
+            newFreqCorr_key1.add(encCharsFreq.get('x'));
+            newFreqCorr_key1.add(encCharsFreq.get('y'));
+        }
+        else if(key == 2)
+        {
+            newFreqCorr_key1.add(encCharsFreq.get('y'));
+            newFreqCorr_key1.add(encCharsFreq.get('z'));
+            newFreqCorr_key1.add(encCharsFreq.get('a'));
+            newFreqCorr_key1.add(encCharsFreq.get('b'));
+            newFreqCorr_key1.add(encCharsFreq.get('c'));
+            newFreqCorr_key1.add(encCharsFreq.get('d'));
+            newFreqCorr_key1.add(encCharsFreq.get('e'));
+            newFreqCorr_key1.add(encCharsFreq.get('f'));
+            newFreqCorr_key1.add(encCharsFreq.get('g'));
+            newFreqCorr_key1.add(encCharsFreq.get('h'));
+            newFreqCorr_key1.add(encCharsFreq.get('i'));
+            newFreqCorr_key1.add(encCharsFreq.get('j'));
+            newFreqCorr_key1.add(encCharsFreq.get('k'));
+            newFreqCorr_key1.add(encCharsFreq.get('l'));
+            newFreqCorr_key1.add(encCharsFreq.get('m'));
+            newFreqCorr_key1.add(encCharsFreq.get('n'));
+            newFreqCorr_key1.add(encCharsFreq.get('o'));
+            newFreqCorr_key1.add(encCharsFreq.get('p'));
+            newFreqCorr_key1.add(encCharsFreq.get('q'));
+            newFreqCorr_key1.add(encCharsFreq.get('r'));
+            newFreqCorr_key1.add(encCharsFreq.get('s'));
+            newFreqCorr_key1.add(encCharsFreq.get('t'));
+            newFreqCorr_key1.add(encCharsFreq.get('u'));
+            newFreqCorr_key1.add(encCharsFreq.get('v'));
+            newFreqCorr_key1.add(encCharsFreq.get('w'));
+            newFreqCorr_key1.add(encCharsFreq.get('x'));
+        }
+        else if(key == 3)
+        {
+            newFreqCorr_key1.add(encCharsFreq.get('x'));
+            newFreqCorr_key1.add(encCharsFreq.get('y'));
+            newFreqCorr_key1.add(encCharsFreq.get('z'));
+            newFreqCorr_key1.add(encCharsFreq.get('a'));
+            newFreqCorr_key1.add(encCharsFreq.get('b'));
+            newFreqCorr_key1.add(encCharsFreq.get('c'));
+            newFreqCorr_key1.add(encCharsFreq.get('d'));
+            newFreqCorr_key1.add(encCharsFreq.get('e'));
+            newFreqCorr_key1.add(encCharsFreq.get('f'));
+            newFreqCorr_key1.add(encCharsFreq.get('g'));
+            newFreqCorr_key1.add(encCharsFreq.get('h'));
+            newFreqCorr_key1.add(encCharsFreq.get('i'));
+            newFreqCorr_key1.add(encCharsFreq.get('j'));
+            newFreqCorr_key1.add(encCharsFreq.get('k'));
+            newFreqCorr_key1.add(encCharsFreq.get('l'));
+            newFreqCorr_key1.add(encCharsFreq.get('m'));
+            newFreqCorr_key1.add(encCharsFreq.get('n'));
+            newFreqCorr_key1.add(encCharsFreq.get('o'));
+            newFreqCorr_key1.add(encCharsFreq.get('p'));
+            newFreqCorr_key1.add(encCharsFreq.get('q'));
+            newFreqCorr_key1.add(encCharsFreq.get('r'));
+            newFreqCorr_key1.add(encCharsFreq.get('s'));
+            newFreqCorr_key1.add(encCharsFreq.get('t'));
+            newFreqCorr_key1.add(encCharsFreq.get('u'));
+            newFreqCorr_key1.add(encCharsFreq.get('v'));
+            newFreqCorr_key1.add(encCharsFreq.get('w'));
+        }
+        else if(key == 4)
+        {
+            newFreqCorr_key1.add(encCharsFreq.get('w'));
+            newFreqCorr_key1.add(encCharsFreq.get('x'));
+            newFreqCorr_key1.add(encCharsFreq.get('y'));
+            newFreqCorr_key1.add(encCharsFreq.get('z'));
+            newFreqCorr_key1.add(encCharsFreq.get('a'));
+            newFreqCorr_key1.add(encCharsFreq.get('b'));
+            newFreqCorr_key1.add(encCharsFreq.get('c'));
+            newFreqCorr_key1.add(encCharsFreq.get('d'));
+            newFreqCorr_key1.add(encCharsFreq.get('e'));
+            newFreqCorr_key1.add(encCharsFreq.get('f'));
+            newFreqCorr_key1.add(encCharsFreq.get('g'));
+            newFreqCorr_key1.add(encCharsFreq.get('h'));
+            newFreqCorr_key1.add(encCharsFreq.get('i'));
+            newFreqCorr_key1.add(encCharsFreq.get('j'));
+            newFreqCorr_key1.add(encCharsFreq.get('k'));
+            newFreqCorr_key1.add(encCharsFreq.get('l'));
+            newFreqCorr_key1.add(encCharsFreq.get('m'));
+            newFreqCorr_key1.add(encCharsFreq.get('n'));
+            newFreqCorr_key1.add(encCharsFreq.get('o'));
+            newFreqCorr_key1.add(encCharsFreq.get('p'));
+            newFreqCorr_key1.add(encCharsFreq.get('q'));
+            newFreqCorr_key1.add(encCharsFreq.get('r'));
+            newFreqCorr_key1.add(encCharsFreq.get('s'));
+            newFreqCorr_key1.add(encCharsFreq.get('t'));
+            newFreqCorr_key1.add(encCharsFreq.get('u'));
+            newFreqCorr_key1.add(encCharsFreq.get('v'));
+        }
+        else if(key == 5)
+        {
+            newFreqCorr_key1.add(encCharsFreq.get('v'));
+            newFreqCorr_key1.add(encCharsFreq.get('w'));
+            newFreqCorr_key1.add(encCharsFreq.get('x'));
+            newFreqCorr_key1.add(encCharsFreq.get('y'));
+            newFreqCorr_key1.add(encCharsFreq.get('z'));
+            newFreqCorr_key1.add(encCharsFreq.get('a'));
+            newFreqCorr_key1.add(encCharsFreq.get('b'));
+            newFreqCorr_key1.add(encCharsFreq.get('c'));
+            newFreqCorr_key1.add(encCharsFreq.get('d'));
+            newFreqCorr_key1.add(encCharsFreq.get('e'));
+            newFreqCorr_key1.add(encCharsFreq.get('f'));
+            newFreqCorr_key1.add(encCharsFreq.get('g'));
+            newFreqCorr_key1.add(encCharsFreq.get('h'));
+            newFreqCorr_key1.add(encCharsFreq.get('i'));
+            newFreqCorr_key1.add(encCharsFreq.get('j'));
+            newFreqCorr_key1.add(encCharsFreq.get('k'));
+            newFreqCorr_key1.add(encCharsFreq.get('l'));
+            newFreqCorr_key1.add(encCharsFreq.get('m'));
+            newFreqCorr_key1.add(encCharsFreq.get('n'));
+            newFreqCorr_key1.add(encCharsFreq.get('o'));
+            newFreqCorr_key1.add(encCharsFreq.get('p'));
+            newFreqCorr_key1.add(encCharsFreq.get('q'));
+            newFreqCorr_key1.add(encCharsFreq.get('r'));
+            newFreqCorr_key1.add(encCharsFreq.get('s'));
+            newFreqCorr_key1.add(encCharsFreq.get('t'));
+            newFreqCorr_key1.add(encCharsFreq.get('u'));
+        }
+        else if(key == 6)
+        {
+            newFreqCorr_key1.add(encCharsFreq.get('u'));
+            newFreqCorr_key1.add(encCharsFreq.get('v'));
+            newFreqCorr_key1.add(encCharsFreq.get('w'));
+            newFreqCorr_key1.add(encCharsFreq.get('x'));
+            newFreqCorr_key1.add(encCharsFreq.get('y'));
+            newFreqCorr_key1.add(encCharsFreq.get('z'));
+            newFreqCorr_key1.add(encCharsFreq.get('a'));
+            newFreqCorr_key1.add(encCharsFreq.get('b'));
+            newFreqCorr_key1.add(encCharsFreq.get('c'));
+            newFreqCorr_key1.add(encCharsFreq.get('d'));
+            newFreqCorr_key1.add(encCharsFreq.get('e'));
+            newFreqCorr_key1.add(encCharsFreq.get('f'));
+            newFreqCorr_key1.add(encCharsFreq.get('g'));
+            newFreqCorr_key1.add(encCharsFreq.get('h'));
+            newFreqCorr_key1.add(encCharsFreq.get('i'));
+            newFreqCorr_key1.add(encCharsFreq.get('j'));
+            newFreqCorr_key1.add(encCharsFreq.get('k'));
+            newFreqCorr_key1.add(encCharsFreq.get('l'));
+            newFreqCorr_key1.add(encCharsFreq.get('m'));
+            newFreqCorr_key1.add(encCharsFreq.get('n'));
+            newFreqCorr_key1.add(encCharsFreq.get('o'));
+            newFreqCorr_key1.add(encCharsFreq.get('p'));
+            newFreqCorr_key1.add(encCharsFreq.get('q'));
+            newFreqCorr_key1.add(encCharsFreq.get('r'));
+            newFreqCorr_key1.add(encCharsFreq.get('s'));
+            newFreqCorr_key1.add(encCharsFreq.get('t'));
+        }
+        else if(key == 7)
+        {
+            newFreqCorr_key1.add(encCharsFreq.get('t'));
+            newFreqCorr_key1.add(encCharsFreq.get('u'));
+            newFreqCorr_key1.add(encCharsFreq.get('v'));
+            newFreqCorr_key1.add(encCharsFreq.get('w'));
+            newFreqCorr_key1.add(encCharsFreq.get('x'));
+            newFreqCorr_key1.add(encCharsFreq.get('y'));
+            newFreqCorr_key1.add(encCharsFreq.get('z'));
+            newFreqCorr_key1.add(encCharsFreq.get('a'));
+            newFreqCorr_key1.add(encCharsFreq.get('b'));
+            newFreqCorr_key1.add(encCharsFreq.get('c'));
+            newFreqCorr_key1.add(encCharsFreq.get('d'));
+            newFreqCorr_key1.add(encCharsFreq.get('e'));
+            newFreqCorr_key1.add(encCharsFreq.get('f'));
+            newFreqCorr_key1.add(encCharsFreq.get('g'));
+            newFreqCorr_key1.add(encCharsFreq.get('h'));
+            newFreqCorr_key1.add(encCharsFreq.get('i'));
+            newFreqCorr_key1.add(encCharsFreq.get('j'));
+            newFreqCorr_key1.add(encCharsFreq.get('k'));
+            newFreqCorr_key1.add(encCharsFreq.get('l'));
+            newFreqCorr_key1.add(encCharsFreq.get('m'));
+            newFreqCorr_key1.add(encCharsFreq.get('n'));
+            newFreqCorr_key1.add(encCharsFreq.get('o'));
+            newFreqCorr_key1.add(encCharsFreq.get('p'));
+            newFreqCorr_key1.add(encCharsFreq.get('q'));
+            newFreqCorr_key1.add(encCharsFreq.get('r'));
+            newFreqCorr_key1.add(encCharsFreq.get('s'));
+        }
+        else if(key == 8)
+        {
+            newFreqCorr_key1.add(encCharsFreq.get('s'));
+            newFreqCorr_key1.add(encCharsFreq.get('t'));
+            newFreqCorr_key1.add(encCharsFreq.get('u'));
+            newFreqCorr_key1.add(encCharsFreq.get('v'));
+            newFreqCorr_key1.add(encCharsFreq.get('w'));
+            newFreqCorr_key1.add(encCharsFreq.get('x'));
+            newFreqCorr_key1.add(encCharsFreq.get('y'));
+            newFreqCorr_key1.add(encCharsFreq.get('z'));
+            newFreqCorr_key1.add(encCharsFreq.get('a'));
+            newFreqCorr_key1.add(encCharsFreq.get('b'));
+            newFreqCorr_key1.add(encCharsFreq.get('c'));
+            newFreqCorr_key1.add(encCharsFreq.get('d'));
+            newFreqCorr_key1.add(encCharsFreq.get('e'));
+            newFreqCorr_key1.add(encCharsFreq.get('f'));
+            newFreqCorr_key1.add(encCharsFreq.get('g'));
+            newFreqCorr_key1.add(encCharsFreq.get('h'));
+            newFreqCorr_key1.add(encCharsFreq.get('i'));
+            newFreqCorr_key1.add(encCharsFreq.get('j'));
+            newFreqCorr_key1.add(encCharsFreq.get('k'));
+            newFreqCorr_key1.add(encCharsFreq.get('l'));
+            newFreqCorr_key1.add(encCharsFreq.get('m'));
+            newFreqCorr_key1.add(encCharsFreq.get('n'));
+            newFreqCorr_key1.add(encCharsFreq.get('o'));
+            newFreqCorr_key1.add(encCharsFreq.get('p'));
+            newFreqCorr_key1.add(encCharsFreq.get('q'));
+            newFreqCorr_key1.add(encCharsFreq.get('r'));
+        }
+        else if(key == 9)
+        {
+            newFreqCorr_key1.add(encCharsFreq.get('r'));
+            newFreqCorr_key1.add(encCharsFreq.get('s'));
+            newFreqCorr_key1.add(encCharsFreq.get('t'));
+            newFreqCorr_key1.add(encCharsFreq.get('u'));
+            newFreqCorr_key1.add(encCharsFreq.get('v'));
+            newFreqCorr_key1.add(encCharsFreq.get('w'));
+            newFreqCorr_key1.add(encCharsFreq.get('x'));
+            newFreqCorr_key1.add(encCharsFreq.get('y'));
+            newFreqCorr_key1.add(encCharsFreq.get('z'));
+            newFreqCorr_key1.add(encCharsFreq.get('a'));
+            newFreqCorr_key1.add(encCharsFreq.get('b'));
+            newFreqCorr_key1.add(encCharsFreq.get('c'));
+            newFreqCorr_key1.add(encCharsFreq.get('d'));
+            newFreqCorr_key1.add(encCharsFreq.get('e'));
+            newFreqCorr_key1.add(encCharsFreq.get('f'));
+            newFreqCorr_key1.add(encCharsFreq.get('g'));
+            newFreqCorr_key1.add(encCharsFreq.get('h'));
+            newFreqCorr_key1.add(encCharsFreq.get('i'));
+            newFreqCorr_key1.add(encCharsFreq.get('j'));
+            newFreqCorr_key1.add(encCharsFreq.get('k'));
+            newFreqCorr_key1.add(encCharsFreq.get('l'));
+            newFreqCorr_key1.add(encCharsFreq.get('m'));
+            newFreqCorr_key1.add(encCharsFreq.get('n'));
+            newFreqCorr_key1.add(encCharsFreq.get('o'));
+            newFreqCorr_key1.add(encCharsFreq.get('p'));
+            newFreqCorr_key1.add(encCharsFreq.get('q'));
+        }
+        else if(key == 10)
+        {
+            newFreqCorr_key1.add(encCharsFreq.get('q'));
+            newFreqCorr_key1.add(encCharsFreq.get('r'));
+            newFreqCorr_key1.add(encCharsFreq.get('s'));
+            newFreqCorr_key1.add(encCharsFreq.get('t'));
+            newFreqCorr_key1.add(encCharsFreq.get('u'));
+            newFreqCorr_key1.add(encCharsFreq.get('v'));
+            newFreqCorr_key1.add(encCharsFreq.get('w'));
+            newFreqCorr_key1.add(encCharsFreq.get('x'));
+            newFreqCorr_key1.add(encCharsFreq.get('y'));
+            newFreqCorr_key1.add(encCharsFreq.get('z'));
+            newFreqCorr_key1.add(encCharsFreq.get('a'));
+            newFreqCorr_key1.add(encCharsFreq.get('b'));
+            newFreqCorr_key1.add(encCharsFreq.get('c'));
+            newFreqCorr_key1.add(encCharsFreq.get('d'));
+            newFreqCorr_key1.add(encCharsFreq.get('e'));
+            newFreqCorr_key1.add(encCharsFreq.get('f'));
+            newFreqCorr_key1.add(encCharsFreq.get('g'));
+            newFreqCorr_key1.add(encCharsFreq.get('h'));
+            newFreqCorr_key1.add(encCharsFreq.get('i'));
+            newFreqCorr_key1.add(encCharsFreq.get('j'));
+            newFreqCorr_key1.add(encCharsFreq.get('k'));
+            newFreqCorr_key1.add(encCharsFreq.get('l'));
+            newFreqCorr_key1.add(encCharsFreq.get('m'));
+            newFreqCorr_key1.add(encCharsFreq.get('n'));
+            newFreqCorr_key1.add(encCharsFreq.get('o'));
+            newFreqCorr_key1.add(encCharsFreq.get('p'));
+        }
+        else if(key == 11)
+        {
+            newFreqCorr_key1.add(encCharsFreq.get('p'));
+            newFreqCorr_key1.add(encCharsFreq.get('q'));
+            newFreqCorr_key1.add(encCharsFreq.get('r'));
+            newFreqCorr_key1.add(encCharsFreq.get('s'));
+            newFreqCorr_key1.add(encCharsFreq.get('t'));
+            newFreqCorr_key1.add(encCharsFreq.get('u'));
+            newFreqCorr_key1.add(encCharsFreq.get('v'));
+            newFreqCorr_key1.add(encCharsFreq.get('w'));
+            newFreqCorr_key1.add(encCharsFreq.get('x'));
+            newFreqCorr_key1.add(encCharsFreq.get('y'));
+            newFreqCorr_key1.add(encCharsFreq.get('z'));
+            newFreqCorr_key1.add(encCharsFreq.get('a'));
+            newFreqCorr_key1.add(encCharsFreq.get('b'));
+            newFreqCorr_key1.add(encCharsFreq.get('c'));
+            newFreqCorr_key1.add(encCharsFreq.get('d'));
+            newFreqCorr_key1.add(encCharsFreq.get('e'));
+            newFreqCorr_key1.add(encCharsFreq.get('f'));
+            newFreqCorr_key1.add(encCharsFreq.get('g'));
+            newFreqCorr_key1.add(encCharsFreq.get('h'));
+            newFreqCorr_key1.add(encCharsFreq.get('i'));
+            newFreqCorr_key1.add(encCharsFreq.get('j'));
+            newFreqCorr_key1.add(encCharsFreq.get('k'));
+            newFreqCorr_key1.add(encCharsFreq.get('l'));
+            newFreqCorr_key1.add(encCharsFreq.get('m'));
+            newFreqCorr_key1.add(encCharsFreq.get('n'));
+            newFreqCorr_key1.add(encCharsFreq.get('o'));
+        }
+        else if(key == 12)
+        {
+            newFreqCorr_key1.add(encCharsFreq.get('o'));
+            newFreqCorr_key1.add(encCharsFreq.get('p'));
+            newFreqCorr_key1.add(encCharsFreq.get('q'));
+            newFreqCorr_key1.add(encCharsFreq.get('r'));
+            newFreqCorr_key1.add(encCharsFreq.get('s'));
+            newFreqCorr_key1.add(encCharsFreq.get('t'));
+            newFreqCorr_key1.add(encCharsFreq.get('u'));
+            newFreqCorr_key1.add(encCharsFreq.get('v'));
+            newFreqCorr_key1.add(encCharsFreq.get('w'));
+            newFreqCorr_key1.add(encCharsFreq.get('x'));
+            newFreqCorr_key1.add(encCharsFreq.get('y'));
+            newFreqCorr_key1.add(encCharsFreq.get('z'));
+            newFreqCorr_key1.add(encCharsFreq.get('a'));
+            newFreqCorr_key1.add(encCharsFreq.get('b'));
+            newFreqCorr_key1.add(encCharsFreq.get('c'));
+            newFreqCorr_key1.add(encCharsFreq.get('d'));
+            newFreqCorr_key1.add(encCharsFreq.get('e'));
+            newFreqCorr_key1.add(encCharsFreq.get('f'));
+            newFreqCorr_key1.add(encCharsFreq.get('g'));
+            newFreqCorr_key1.add(encCharsFreq.get('h'));
+            newFreqCorr_key1.add(encCharsFreq.get('i'));
+            newFreqCorr_key1.add(encCharsFreq.get('j'));
+            newFreqCorr_key1.add(encCharsFreq.get('k'));
+            newFreqCorr_key1.add(encCharsFreq.get('l'));
+            newFreqCorr_key1.add(encCharsFreq.get('m'));
+            newFreqCorr_key1.add(encCharsFreq.get('n'));
+        }
+        else if(key == 13)
+        {
+            newFreqCorr_key1.add(encCharsFreq.get('n'));
+            newFreqCorr_key1.add(encCharsFreq.get('o'));
+            newFreqCorr_key1.add(encCharsFreq.get('p'));
+            newFreqCorr_key1.add(encCharsFreq.get('q'));
+            newFreqCorr_key1.add(encCharsFreq.get('r'));
+            newFreqCorr_key1.add(encCharsFreq.get('s'));
+            newFreqCorr_key1.add(encCharsFreq.get('t'));
+            newFreqCorr_key1.add(encCharsFreq.get('u'));
+            newFreqCorr_key1.add(encCharsFreq.get('v'));
+            newFreqCorr_key1.add(encCharsFreq.get('w'));
+            newFreqCorr_key1.add(encCharsFreq.get('x'));
+            newFreqCorr_key1.add(encCharsFreq.get('y'));
+            newFreqCorr_key1.add(encCharsFreq.get('z'));
+            newFreqCorr_key1.add(encCharsFreq.get('a'));
+            newFreqCorr_key1.add(encCharsFreq.get('b'));
+            newFreqCorr_key1.add(encCharsFreq.get('c'));
+            newFreqCorr_key1.add(encCharsFreq.get('d'));
+            newFreqCorr_key1.add(encCharsFreq.get('e'));
+            newFreqCorr_key1.add(encCharsFreq.get('f'));
+            newFreqCorr_key1.add(encCharsFreq.get('g'));
+            newFreqCorr_key1.add(encCharsFreq.get('h'));
+            newFreqCorr_key1.add(encCharsFreq.get('i'));
+            newFreqCorr_key1.add(encCharsFreq.get('j'));
+            newFreqCorr_key1.add(encCharsFreq.get('k'));
+            newFreqCorr_key1.add(encCharsFreq.get('l'));
+            newFreqCorr_key1.add(encCharsFreq.get('m'));
+        }
+        else if(key == 14)
+        {
+            newFreqCorr_key1.add(encCharsFreq.get('m'));
+            newFreqCorr_key1.add(encCharsFreq.get('n'));
+            newFreqCorr_key1.add(encCharsFreq.get('o'));
+            newFreqCorr_key1.add(encCharsFreq.get('p'));
+            newFreqCorr_key1.add(encCharsFreq.get('q'));
+            newFreqCorr_key1.add(encCharsFreq.get('r'));
+            newFreqCorr_key1.add(encCharsFreq.get('s'));
+            newFreqCorr_key1.add(encCharsFreq.get('t'));
+            newFreqCorr_key1.add(encCharsFreq.get('u'));
+            newFreqCorr_key1.add(encCharsFreq.get('v'));
+            newFreqCorr_key1.add(encCharsFreq.get('w'));
+            newFreqCorr_key1.add(encCharsFreq.get('x'));
+            newFreqCorr_key1.add(encCharsFreq.get('y'));
+            newFreqCorr_key1.add(encCharsFreq.get('z'));
+            newFreqCorr_key1.add(encCharsFreq.get('a'));
+            newFreqCorr_key1.add(encCharsFreq.get('b'));
+            newFreqCorr_key1.add(encCharsFreq.get('c'));
+            newFreqCorr_key1.add(encCharsFreq.get('d'));
+            newFreqCorr_key1.add(encCharsFreq.get('e'));
+            newFreqCorr_key1.add(encCharsFreq.get('f'));
+            newFreqCorr_key1.add(encCharsFreq.get('g'));
+            newFreqCorr_key1.add(encCharsFreq.get('h'));
+            newFreqCorr_key1.add(encCharsFreq.get('i'));
+            newFreqCorr_key1.add(encCharsFreq.get('j'));
+            newFreqCorr_key1.add(encCharsFreq.get('k'));
+            newFreqCorr_key1.add(encCharsFreq.get('l'));
+        }
+        else if(key == 15)
+        {
+            newFreqCorr_key1.add(encCharsFreq.get('l'));
+            newFreqCorr_key1.add(encCharsFreq.get('m'));
+            newFreqCorr_key1.add(encCharsFreq.get('n'));
+            newFreqCorr_key1.add(encCharsFreq.get('o'));
+            newFreqCorr_key1.add(encCharsFreq.get('p'));
+            newFreqCorr_key1.add(encCharsFreq.get('q'));
+            newFreqCorr_key1.add(encCharsFreq.get('r'));
+            newFreqCorr_key1.add(encCharsFreq.get('s'));
+            newFreqCorr_key1.add(encCharsFreq.get('t'));
+            newFreqCorr_key1.add(encCharsFreq.get('u'));
+            newFreqCorr_key1.add(encCharsFreq.get('v'));
+            newFreqCorr_key1.add(encCharsFreq.get('w'));
+            newFreqCorr_key1.add(encCharsFreq.get('x'));
+            newFreqCorr_key1.add(encCharsFreq.get('y'));
+            newFreqCorr_key1.add(encCharsFreq.get('z'));
+            newFreqCorr_key1.add(encCharsFreq.get('a'));
+            newFreqCorr_key1.add(encCharsFreq.get('b'));
+            newFreqCorr_key1.add(encCharsFreq.get('c'));
+            newFreqCorr_key1.add(encCharsFreq.get('d'));
+            newFreqCorr_key1.add(encCharsFreq.get('e'));
+            newFreqCorr_key1.add(encCharsFreq.get('f'));
+            newFreqCorr_key1.add(encCharsFreq.get('g'));
+            newFreqCorr_key1.add(encCharsFreq.get('h'));
+            newFreqCorr_key1.add(encCharsFreq.get('i'));
+            newFreqCorr_key1.add(encCharsFreq.get('j'));
+            newFreqCorr_key1.add(encCharsFreq.get('k'));
+        }
+        else if(key == 16)
+        {
+            newFreqCorr_key1.add(encCharsFreq.get('k'));
+            newFreqCorr_key1.add(encCharsFreq.get('l'));
+            newFreqCorr_key1.add(encCharsFreq.get('m'));
+            newFreqCorr_key1.add(encCharsFreq.get('n'));
+            newFreqCorr_key1.add(encCharsFreq.get('o'));
+            newFreqCorr_key1.add(encCharsFreq.get('p'));
+            newFreqCorr_key1.add(encCharsFreq.get('q'));
+            newFreqCorr_key1.add(encCharsFreq.get('r'));
+            newFreqCorr_key1.add(encCharsFreq.get('s'));
+            newFreqCorr_key1.add(encCharsFreq.get('t'));
+            newFreqCorr_key1.add(encCharsFreq.get('u'));
+            newFreqCorr_key1.add(encCharsFreq.get('v'));
+            newFreqCorr_key1.add(encCharsFreq.get('w'));
+            newFreqCorr_key1.add(encCharsFreq.get('x'));
+            newFreqCorr_key1.add(encCharsFreq.get('y'));
+            newFreqCorr_key1.add(encCharsFreq.get('z'));
+            newFreqCorr_key1.add(encCharsFreq.get('a'));
+            newFreqCorr_key1.add(encCharsFreq.get('b'));
+            newFreqCorr_key1.add(encCharsFreq.get('c'));
+            newFreqCorr_key1.add(encCharsFreq.get('d'));
+            newFreqCorr_key1.add(encCharsFreq.get('e'));
+            newFreqCorr_key1.add(encCharsFreq.get('f'));
+            newFreqCorr_key1.add(encCharsFreq.get('g'));
+            newFreqCorr_key1.add(encCharsFreq.get('h'));
+            newFreqCorr_key1.add(encCharsFreq.get('i'));
+            newFreqCorr_key1.add(encCharsFreq.get('j'));
+        }
+        else if(key == 17)
+        {
+            newFreqCorr_key1.add(encCharsFreq.get('j'));
+            newFreqCorr_key1.add(encCharsFreq.get('k'));
+            newFreqCorr_key1.add(encCharsFreq.get('l'));
+            newFreqCorr_key1.add(encCharsFreq.get('m'));
+            newFreqCorr_key1.add(encCharsFreq.get('n'));
+            newFreqCorr_key1.add(encCharsFreq.get('o'));
+            newFreqCorr_key1.add(encCharsFreq.get('p'));
+            newFreqCorr_key1.add(encCharsFreq.get('q'));
+            newFreqCorr_key1.add(encCharsFreq.get('r'));
+            newFreqCorr_key1.add(encCharsFreq.get('s'));
+            newFreqCorr_key1.add(encCharsFreq.get('t'));
+            newFreqCorr_key1.add(encCharsFreq.get('u'));
+            newFreqCorr_key1.add(encCharsFreq.get('v'));
+            newFreqCorr_key1.add(encCharsFreq.get('w'));
+            newFreqCorr_key1.add(encCharsFreq.get('x'));
+            newFreqCorr_key1.add(encCharsFreq.get('y'));
+            newFreqCorr_key1.add(encCharsFreq.get('z'));
+            newFreqCorr_key1.add(encCharsFreq.get('a'));
+            newFreqCorr_key1.add(encCharsFreq.get('b'));
+            newFreqCorr_key1.add(encCharsFreq.get('c'));
+            newFreqCorr_key1.add(encCharsFreq.get('d'));
+            newFreqCorr_key1.add(encCharsFreq.get('e'));
+            newFreqCorr_key1.add(encCharsFreq.get('f'));
+            newFreqCorr_key1.add(encCharsFreq.get('g'));
+            newFreqCorr_key1.add(encCharsFreq.get('h'));
+            newFreqCorr_key1.add(encCharsFreq.get('i'));
+        }
+        else if(key == 18)
+        {
+            newFreqCorr_key1.add(encCharsFreq.get('i'));
+            newFreqCorr_key1.add(encCharsFreq.get('j'));
+            newFreqCorr_key1.add(encCharsFreq.get('k'));
+            newFreqCorr_key1.add(encCharsFreq.get('l'));
+            newFreqCorr_key1.add(encCharsFreq.get('m'));
+            newFreqCorr_key1.add(encCharsFreq.get('n'));
+            newFreqCorr_key1.add(encCharsFreq.get('o'));
+            newFreqCorr_key1.add(encCharsFreq.get('p'));
+            newFreqCorr_key1.add(encCharsFreq.get('q'));
+            newFreqCorr_key1.add(encCharsFreq.get('r'));
+            newFreqCorr_key1.add(encCharsFreq.get('s'));
+            newFreqCorr_key1.add(encCharsFreq.get('t'));
+            newFreqCorr_key1.add(encCharsFreq.get('u'));
+            newFreqCorr_key1.add(encCharsFreq.get('v'));
+            newFreqCorr_key1.add(encCharsFreq.get('w'));
+            newFreqCorr_key1.add(encCharsFreq.get('x'));
+            newFreqCorr_key1.add(encCharsFreq.get('y'));
+            newFreqCorr_key1.add(encCharsFreq.get('z'));
+            newFreqCorr_key1.add(encCharsFreq.get('a'));
+            newFreqCorr_key1.add(encCharsFreq.get('b'));
+            newFreqCorr_key1.add(encCharsFreq.get('c'));
+            newFreqCorr_key1.add(encCharsFreq.get('d'));
+            newFreqCorr_key1.add(encCharsFreq.get('e'));
+            newFreqCorr_key1.add(encCharsFreq.get('f'));
+            newFreqCorr_key1.add(encCharsFreq.get('g'));
+            newFreqCorr_key1.add(encCharsFreq.get('h'));
+        }
+        else if(key == 19)
+        {
+            newFreqCorr_key1.add(encCharsFreq.get('h'));
+            newFreqCorr_key1.add(encCharsFreq.get('i'));
+            newFreqCorr_key1.add(encCharsFreq.get('j'));
+            newFreqCorr_key1.add(encCharsFreq.get('k'));
+            newFreqCorr_key1.add(encCharsFreq.get('l'));
+            newFreqCorr_key1.add(encCharsFreq.get('m'));
+            newFreqCorr_key1.add(encCharsFreq.get('n'));
+            newFreqCorr_key1.add(encCharsFreq.get('o'));
+            newFreqCorr_key1.add(encCharsFreq.get('p'));
+            newFreqCorr_key1.add(encCharsFreq.get('q'));
+            newFreqCorr_key1.add(encCharsFreq.get('r'));
+            newFreqCorr_key1.add(encCharsFreq.get('s'));
+            newFreqCorr_key1.add(encCharsFreq.get('t'));
+            newFreqCorr_key1.add(encCharsFreq.get('u'));
+            newFreqCorr_key1.add(encCharsFreq.get('v'));
+            newFreqCorr_key1.add(encCharsFreq.get('w'));
+            newFreqCorr_key1.add(encCharsFreq.get('x'));
+            newFreqCorr_key1.add(encCharsFreq.get('y'));
+            newFreqCorr_key1.add(encCharsFreq.get('z'));
+            newFreqCorr_key1.add(encCharsFreq.get('a'));
+            newFreqCorr_key1.add(encCharsFreq.get('b'));
+            newFreqCorr_key1.add(encCharsFreq.get('c'));
+            newFreqCorr_key1.add(encCharsFreq.get('d'));
+            newFreqCorr_key1.add(encCharsFreq.get('e'));
+            newFreqCorr_key1.add(encCharsFreq.get('f'));
+            newFreqCorr_key1.add(encCharsFreq.get('g'));
+        }
+        else if(key == 20)
+        {
+            newFreqCorr_key1.add(encCharsFreq.get('g'));
+            newFreqCorr_key1.add(encCharsFreq.get('h'));
+            newFreqCorr_key1.add(encCharsFreq.get('i'));
+            newFreqCorr_key1.add(encCharsFreq.get('j'));
+            newFreqCorr_key1.add(encCharsFreq.get('k'));
+            newFreqCorr_key1.add(encCharsFreq.get('l'));
+            newFreqCorr_key1.add(encCharsFreq.get('m'));
+            newFreqCorr_key1.add(encCharsFreq.get('n'));
+            newFreqCorr_key1.add(encCharsFreq.get('o'));
+            newFreqCorr_key1.add(encCharsFreq.get('p'));
+            newFreqCorr_key1.add(encCharsFreq.get('q'));
+            newFreqCorr_key1.add(encCharsFreq.get('r'));
+            newFreqCorr_key1.add(encCharsFreq.get('s'));
+            newFreqCorr_key1.add(encCharsFreq.get('t'));
+            newFreqCorr_key1.add(encCharsFreq.get('u'));
+            newFreqCorr_key1.add(encCharsFreq.get('v'));
+            newFreqCorr_key1.add(encCharsFreq.get('w'));
+            newFreqCorr_key1.add(encCharsFreq.get('x'));
+            newFreqCorr_key1.add(encCharsFreq.get('y'));
+            newFreqCorr_key1.add(encCharsFreq.get('z'));
+            newFreqCorr_key1.add(encCharsFreq.get('a'));
+            newFreqCorr_key1.add(encCharsFreq.get('b'));
+            newFreqCorr_key1.add(encCharsFreq.get('c'));
+            newFreqCorr_key1.add(encCharsFreq.get('d'));
+            newFreqCorr_key1.add(encCharsFreq.get('e'));
+            newFreqCorr_key1.add(encCharsFreq.get('f'));
+        }
+        else if(key == 21)
+        {
+            newFreqCorr_key1.add(encCharsFreq.get('f'));
+            newFreqCorr_key1.add(encCharsFreq.get('g'));
+            newFreqCorr_key1.add(encCharsFreq.get('h'));
+            newFreqCorr_key1.add(encCharsFreq.get('i'));
+            newFreqCorr_key1.add(encCharsFreq.get('j'));
+            newFreqCorr_key1.add(encCharsFreq.get('k'));
+            newFreqCorr_key1.add(encCharsFreq.get('l'));
+            newFreqCorr_key1.add(encCharsFreq.get('m'));
+            newFreqCorr_key1.add(encCharsFreq.get('n'));
+            newFreqCorr_key1.add(encCharsFreq.get('o'));
+            newFreqCorr_key1.add(encCharsFreq.get('p'));
+            newFreqCorr_key1.add(encCharsFreq.get('q'));
+            newFreqCorr_key1.add(encCharsFreq.get('r'));
+            newFreqCorr_key1.add(encCharsFreq.get('s'));
+            newFreqCorr_key1.add(encCharsFreq.get('t'));
+            newFreqCorr_key1.add(encCharsFreq.get('u'));
+            newFreqCorr_key1.add(encCharsFreq.get('v'));
+            newFreqCorr_key1.add(encCharsFreq.get('w'));
+            newFreqCorr_key1.add(encCharsFreq.get('x'));
+            newFreqCorr_key1.add(encCharsFreq.get('y'));
+            newFreqCorr_key1.add(encCharsFreq.get('z'));
+            newFreqCorr_key1.add(encCharsFreq.get('a'));
+            newFreqCorr_key1.add(encCharsFreq.get('b'));
+            newFreqCorr_key1.add(encCharsFreq.get('c'));
+            newFreqCorr_key1.add(encCharsFreq.get('d'));
+            newFreqCorr_key1.add(encCharsFreq.get('e'));
+        }
+        else if(key == 22)
+        {
+            newFreqCorr_key1.add(encCharsFreq.get('e'));
+            newFreqCorr_key1.add(encCharsFreq.get('f'));
+            newFreqCorr_key1.add(encCharsFreq.get('g'));
+            newFreqCorr_key1.add(encCharsFreq.get('h'));
+            newFreqCorr_key1.add(encCharsFreq.get('i'));
+            newFreqCorr_key1.add(encCharsFreq.get('j'));
+            newFreqCorr_key1.add(encCharsFreq.get('k'));
+            newFreqCorr_key1.add(encCharsFreq.get('l'));
+            newFreqCorr_key1.add(encCharsFreq.get('m'));
+            newFreqCorr_key1.add(encCharsFreq.get('n'));
+            newFreqCorr_key1.add(encCharsFreq.get('o'));
+            newFreqCorr_key1.add(encCharsFreq.get('p'));
+            newFreqCorr_key1.add(encCharsFreq.get('q'));
+            newFreqCorr_key1.add(encCharsFreq.get('r'));
+            newFreqCorr_key1.add(encCharsFreq.get('s'));
+            newFreqCorr_key1.add(encCharsFreq.get('t'));
+            newFreqCorr_key1.add(encCharsFreq.get('u'));
+            newFreqCorr_key1.add(encCharsFreq.get('v'));
+            newFreqCorr_key1.add(encCharsFreq.get('w'));
+            newFreqCorr_key1.add(encCharsFreq.get('x'));
+            newFreqCorr_key1.add(encCharsFreq.get('y'));
+            newFreqCorr_key1.add(encCharsFreq.get('z'));
+            newFreqCorr_key1.add(encCharsFreq.get('a'));
+            newFreqCorr_key1.add(encCharsFreq.get('b'));
+            newFreqCorr_key1.add(encCharsFreq.get('c'));
+            newFreqCorr_key1.add(encCharsFreq.get('d'));
+        }
+        else if(key == 23)
+        {
+            newFreqCorr_key1.add(encCharsFreq.get('d'));
+            newFreqCorr_key1.add(encCharsFreq.get('e'));
+            newFreqCorr_key1.add(encCharsFreq.get('f'));
+            newFreqCorr_key1.add(encCharsFreq.get('g'));
+            newFreqCorr_key1.add(encCharsFreq.get('h'));
+            newFreqCorr_key1.add(encCharsFreq.get('i'));
+            newFreqCorr_key1.add(encCharsFreq.get('j'));
+            newFreqCorr_key1.add(encCharsFreq.get('k'));
+            newFreqCorr_key1.add(encCharsFreq.get('l'));
+            newFreqCorr_key1.add(encCharsFreq.get('m'));
+            newFreqCorr_key1.add(encCharsFreq.get('n'));
+            newFreqCorr_key1.add(encCharsFreq.get('o'));
+            newFreqCorr_key1.add(encCharsFreq.get('p'));
+            newFreqCorr_key1.add(encCharsFreq.get('q'));
+            newFreqCorr_key1.add(encCharsFreq.get('r'));
+            newFreqCorr_key1.add(encCharsFreq.get('s'));
+            newFreqCorr_key1.add(encCharsFreq.get('t'));
+            newFreqCorr_key1.add(encCharsFreq.get('u'));
+            newFreqCorr_key1.add(encCharsFreq.get('v'));
+            newFreqCorr_key1.add(encCharsFreq.get('w'));
+            newFreqCorr_key1.add(encCharsFreq.get('x'));
+            newFreqCorr_key1.add(encCharsFreq.get('y'));
+            newFreqCorr_key1.add(encCharsFreq.get('z'));
+            newFreqCorr_key1.add(encCharsFreq.get('a'));
+            newFreqCorr_key1.add(encCharsFreq.get('b'));
+            newFreqCorr_key1.add(encCharsFreq.get('c'));
+        }
+        else if(key == 24)
+        {
+            newFreqCorr_key1.add(encCharsFreq.get('c'));
+            newFreqCorr_key1.add(encCharsFreq.get('d'));
+            newFreqCorr_key1.add(encCharsFreq.get('e'));
+            newFreqCorr_key1.add(encCharsFreq.get('f'));
+            newFreqCorr_key1.add(encCharsFreq.get('g'));
+            newFreqCorr_key1.add(encCharsFreq.get('h'));
+            newFreqCorr_key1.add(encCharsFreq.get('i'));
+            newFreqCorr_key1.add(encCharsFreq.get('j'));
+            newFreqCorr_key1.add(encCharsFreq.get('k'));
+            newFreqCorr_key1.add(encCharsFreq.get('l'));
+            newFreqCorr_key1.add(encCharsFreq.get('m'));
+            newFreqCorr_key1.add(encCharsFreq.get('n'));
+            newFreqCorr_key1.add(encCharsFreq.get('o'));
+            newFreqCorr_key1.add(encCharsFreq.get('p'));
+            newFreqCorr_key1.add(encCharsFreq.get('q'));
+            newFreqCorr_key1.add(encCharsFreq.get('r'));
+            newFreqCorr_key1.add(encCharsFreq.get('s'));
+            newFreqCorr_key1.add(encCharsFreq.get('t'));
+            newFreqCorr_key1.add(encCharsFreq.get('u'));
+            newFreqCorr_key1.add(encCharsFreq.get('v'));
+            newFreqCorr_key1.add(encCharsFreq.get('w'));
+            newFreqCorr_key1.add(encCharsFreq.get('x'));
+            newFreqCorr_key1.add(encCharsFreq.get('y'));
+            newFreqCorr_key1.add(encCharsFreq.get('z'));
+            newFreqCorr_key1.add(encCharsFreq.get('a'));
+            newFreqCorr_key1.add(encCharsFreq.get('b'));
+        }
+        else if(key == 25)
+        {
+            newFreqCorr_key1.add(encCharsFreq.get('b'));
+            newFreqCorr_key1.add(encCharsFreq.get('c'));
+            newFreqCorr_key1.add(encCharsFreq.get('d'));
+            newFreqCorr_key1.add(encCharsFreq.get('e'));
+            newFreqCorr_key1.add(encCharsFreq.get('f'));
+            newFreqCorr_key1.add(encCharsFreq.get('g'));
+            newFreqCorr_key1.add(encCharsFreq.get('h'));
+            newFreqCorr_key1.add(encCharsFreq.get('i'));
+            newFreqCorr_key1.add(encCharsFreq.get('j'));
+            newFreqCorr_key1.add(encCharsFreq.get('k'));
+            newFreqCorr_key1.add(encCharsFreq.get('l'));
+            newFreqCorr_key1.add(encCharsFreq.get('m'));
+            newFreqCorr_key1.add(encCharsFreq.get('n'));
+            newFreqCorr_key1.add(encCharsFreq.get('o'));
+            newFreqCorr_key1.add(encCharsFreq.get('p'));
+            newFreqCorr_key1.add(encCharsFreq.get('q'));
+            newFreqCorr_key1.add(encCharsFreq.get('r'));
+            newFreqCorr_key1.add(encCharsFreq.get('s'));
+            newFreqCorr_key1.add(encCharsFreq.get('t'));
+            newFreqCorr_key1.add(encCharsFreq.get('u'));
+            newFreqCorr_key1.add(encCharsFreq.get('v'));
+            newFreqCorr_key1.add(encCharsFreq.get('w'));
+            newFreqCorr_key1.add(encCharsFreq.get('x'));
+            newFreqCorr_key1.add(encCharsFreq.get('y'));
+            newFreqCorr_key1.add(encCharsFreq.get('z'));
+            newFreqCorr_key1.add(encCharsFreq.get('a'));
+        }
+        
+        
+                
+        return newFreqCorr_key1;
+    }
+    
+    
     /**
      * @param args the command line arguments
      */
@@ -557,10 +1435,8 @@ public class enc extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton dec_start;
-    private javax.swing.JTextField enc_key;
     private javax.swing.JButton enc_start;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
-    private javax.swing.JLabel jLabel1;
     // End of variables declaration//GEN-END:variables
 }
