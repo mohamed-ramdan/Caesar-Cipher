@@ -1,23 +1,11 @@
-
-import java.awt.List;
-import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
-import java.io.FileReader;
-import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Scanner;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import static javafx.application.Platform.exit;
 import javax.swing.JFileChooser;
-import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
 /*
@@ -64,7 +52,7 @@ public class enc extends javax.swing.JFrame {
             }
         });
 
-        jButton2.setText("X");
+        jButton2.setText("Exit");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton2ActionPerformed(evt);
@@ -82,27 +70,27 @@ public class enc extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(enc_start, javax.swing.GroupLayout.PREFERRED_SIZE, 169, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(dec_start, javax.swing.GroupLayout.DEFAULT_SIZE, 189, Short.MAX_VALUE)
+                .addContainerGap())
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jButton2)
+                .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(20, 20, 20))
-            .addGroup(layout.createSequentialGroup()
-                .addGap(27, 27, 27)
-                .addComponent(enc_start)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 70, Short.MAX_VALUE)
-                .addComponent(dec_start)
-                .addGap(53, 53, 53))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jButton2)
-                .addGap(66, 66, 66)
+                .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(54, 54, 54)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(enc_start)
-                    .addComponent(dec_start))
-                .addContainerGap(164, Short.MAX_VALUE))
+                    .addComponent(enc_start, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(dec_start, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(124, Short.MAX_VALUE))
         );
 
         pack();
@@ -112,13 +100,12 @@ public class enc extends javax.swing.JFrame {
         // TODO add your handling code here:
         
         JFileChooser jfc = new JFileChooser(); 
-        if(jfc.showOpenDialog(this) == JFileChooser.APPROVE_OPTION) { 
+        if(jfc.showOpenDialog(this) == JFileChooser.APPROVE_OPTION) 
+        { 
             //code to handle choosed file here. 
             File f = jfc.getSelectedFile();
-            //String nam = jfc.getSelectedFile().getName();
-            //System.out.println(jfc.getSelectedFile().getName());exit();
 
-            
+            // Helper Map to help maniplating dealing with the character indexes
             Map<Integer, Character> indexDic = new HashMap<Integer, Character>();
             indexDic.put(0,'a');
             indexDic.put(1,'b');
@@ -148,7 +135,7 @@ public class enc extends javax.swing.JFrame {
             indexDic.put(25,'z');
             
             
-            
+            // Helper Map to help maniplating dealing with the character indexes
             Map<Character, Integer> letterDic = new HashMap<Character, Integer>();
             letterDic.put('a',0);
             letterDic.put('b',1);
@@ -177,44 +164,31 @@ public class enc extends javax.swing.JFrame {
             letterDic.put('y',24);
             letterDic.put('z',25);
             
-            
+            // Array to get file content into
             ArrayList<Character> result = new ArrayList<Character>();
-            
-            
-            
+      
             try
-                {
+            {
                 String path = jfc.getSelectedFile().getPath();
                 FileInputStream fis = new FileInputStream(path);
                 int size = fis.available();
                 byte [] b= new byte[size];
                 fis.read(b);
+                
+                // Log the file content to the console screen.
                 System.out.println(new String(b));
                 
+                // Convert the file content to lowercase and get into an array of char.
                 char ccr [] = new String(b).toLowerCase().toCharArray();
-                
-                
-                
-                
-                
+      
                 
                 int cisarKey;
-//                if(enc_key.getText() == null || enc_key.getText().trim().isEmpty())
-//                {
-                    String cisarKeyString = JOptionPane.showInputDialog(this,
-                        "What is your Key?", null);
-                    cisarKey = Integer.parseInt(cisarKeyString);
-                    
-//                }
-//                else
-//                {
-//                    cisarKey = Integer.parseInt(enc_key.getText());
-//                }
-                 
                 
-                //System.out.println("ZZZZZZZZZZz key " + cisarKey);
-                    
-                
+                // Read the key for cipher from user
+                String cisarKeyString = JOptionPane.showInputDialog(this, "What is your Key?", null);
+                cisarKey = Integer.parseInt(cisarKeyString);
+         
+                // Check if the character is not an English char then Pass it
                 for(int i=0; i< ccr.length-1;i++)
                 {
                     if(! letterDic.containsKey(ccr[i]))
@@ -223,39 +197,28 @@ public class enc extends javax.swing.JFrame {
                     }
                     else
                     {
-                        // cisar cipher euqtion 
+                        // Apply cisar cipher euqtion 
                         int charElementIndex = letterDic.get(ccr[i]);
                         int charElementIndexWithKey = charElementIndex + cisarKey;
                         int encIndex = charElementIndexWithKey % 26; 
                         result.add(indexDic.get(encIndex));
                         
                     }
-                    
-                    
-                    
-                    //System.out.println(ccr[i]);
                 }
                 
-                
-                for(int i = 0; i< result.size(); i++)
+                // Log the Encrypted Text to Console Screen
+                for (int i = 0; i< result.size(); i++)
                 {
                     System.out.print(result.get(i));
                 }
                 
-                
-                
-                
-                
-                
-                
-                
+                // Close the file stream.
                 fis.close();
-                }
-                catch(IOException e)
-                {
-                    e.printStackTrace();
-
-                }
+            }
+            catch(IOException e)
+            {
+                e.printStackTrace();
+            }
                 
             int dialogResult = JOptionPane.showConfirmDialog (null,
                         "Would You Like to Export the Encrypted text to a file? ","Attention Please!",0);
@@ -283,19 +246,8 @@ public class enc extends javax.swing.JFrame {
                             e.printStackTrace();
 
                         }
-            }
-                    
-                 
-//                    JFileChooser jfcc = new JFileChooser(); 
-//                    if(jfc.showOpenDialog(this) == JFileChooser.APPROVE_OPTION) 
-//                    {
-//                        String path = jfcc.getSelectedFile().getPath();
-//                    } 
-                    //System.out.println("LOoOoOk heRe");
+                    }
                 }
-
-            
-
         } 
     }//GEN-LAST:event_enc_startActionPerformed
 
@@ -311,6 +263,7 @@ public class enc extends javax.swing.JFrame {
             //code to handle choosed file here. 
             File encFile = jfc.getSelectedFile();
             
+            // Helper Map to help maniplating dealing with the character indexes
             Map<Integer, Character> indexDic = new HashMap<Integer, Character>();
             indexDic.put(0,'a');
             indexDic.put(1,'b');
@@ -339,6 +292,7 @@ public class enc extends javax.swing.JFrame {
             indexDic.put(24,'y');
             indexDic.put(25,'z');
             
+            // Helper Map to help maniplating dealing with the character indexes
             Map<Character, Integer> letterDic = new HashMap<Character, Integer>();
             letterDic.put('a',0);
             letterDic.put('b',1);
@@ -369,6 +323,7 @@ public class enc extends javax.swing.JFrame {
             
             try
             {
+                
                 String path = jfc.getSelectedFile().getPath();
                 FileInputStream fis = new FileInputStream(path);
                 int size = fis.available();
@@ -378,8 +333,9 @@ public class enc extends javax.swing.JFrame {
                 
                 char result [] = new String(b).toLowerCase().toCharArray();
                 ArrayList<Character> finalResult  = new ArrayList<Character>();
-                // get character frequencies starts
                 
+                
+                // Default English letters frequency
                 Map<Character, Integer> defaultCharsFreq = new HashMap<Character, Integer>();
                 defaultCharsFreq.put('a', 3312);
                 defaultCharsFreq.put('b', 573);
@@ -408,7 +364,7 @@ public class enc extends javax.swing.JFrame {
                 defaultCharsFreq.put('y', 727);
                 defaultCharsFreq.put('z', 16);
                 
-                
+                // Set the Msg letters frequency to 0 as init.
                 Map<Character, Integer> encCharsFreq = new HashMap<Character, Integer>();
                 encCharsFreq.put('a', 0);
                 encCharsFreq.put('b', 0);
@@ -448,40 +404,30 @@ public class enc extends javax.swing.JFrame {
                         encCharsFreq.put(result[i], newFreq);
                     }
                     
-                }
+                }               
                 
-                
-                // KKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKK
-                
-                int key=0;
+                // Array list to hold the equation results for getting the max val from.
                 ArrayList<Double> estimationKeys = new ArrayList<Double>();
                 
-                
-                
-                // KKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKK
-                
-               //.. Psudo Code here
-                // for each case from 1 - 26
-                // 1-  Arraylist<int> = getmyFreqList(int key, map encCharsFreq);
-                // 2-  method take the array list and map default freq retun int sum default * actual 
-                //     getSumMultFreqDefuActu(Map defaultFreq, ArrayList actualFreq, ndexDic)
-                // 3-  int getSumOfDefuFreq()
-                // 4-  int getSumOfMsgFreq() done//
-                // 5- double getSumOfDefuFreqPow2()
-                // 6- double getSumOfMsgFreqPow2()
-                
-                
-                
-                
-                // KKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKK
-                
+                // Guessing the Key
                 for(int i = 1; i<26; i++)
                 {
+                    // Getting the message frequency shifted based on the key value = i 
                     ArrayList<Integer> MsgFreqKeyBased = getmyFreqList(i, encCharsFreq);
+                    
+                    // Get the sum of multiplying the default freq * Msg freq after shfting the msg freq
                     int SumOfMultiDefuFreqToMsgFreqKeyBased = getSumMultFreqDefuActu(defaultCharsFreq,MsgFreqKeyBased,indexDic);
+                    
+                    // Get the sum of default freq
                     int DefuFreqSum = getSumOfDefuFreq(defaultCharsFreq, indexDic);
+                    
+                    // Get the sum of msg freq
                     int MsgFreqSum = getSumOfMsgFreq(encCharsFreq, indexDic);
+                    
+                    // Get the sum of default freq to the power of 2
                     double DefuFreqSumPow2 = getSumOfDefuFreqPow2(defaultCharsFreq, indexDic);
+                    
+                    // Get the sum of Msg freq to the power of 2
                     double MsgFreqSumPow2 = getSumOfMsgFreqPow2(encCharsFreq, indexDic);
 
 
@@ -498,22 +444,27 @@ public class enc extends javax.swing.JFrame {
                     // 2nd square root of y
                     double ySqrt = Math.sqrt(26 * MsgFreqSumPow2 - powerOfSumEncChar);
 
-
+                    // Calculating the top part of Correlation Coeffeciant equation
                     double totalTop = 26 * SumOfMultiDefuFreqToMsgFreqKeyBased - DefuFreqSum  * MsgFreqSum;
-
+                    
+                    // Calculating the bottom part of Correlation Coeffeciant equation
                     double totalBottom = xSqrt * ySqrt;
 
+                    // the result of equation
                     double total = totalTop / totalBottom;
 
 
                     System.out.println(total); 
+                    
+                    // add the result of correlation coeffeient to the estimation key list
                     estimationKeys.add(total);
                     
                 }
                 
                 
                 System.out.println("End of calculation");
-                
+                                
+                // Get the Max estimated value
                 double maxVal=estimationKeys.get(0);
                 int indexOfMaxVal =0;
                 for(int i=0; i<estimationKeys.size()-1; i++)
@@ -524,17 +475,22 @@ public class enc extends javax.swing.JFrame {
                         indexOfMaxVal=estimationKeys.indexOf(maxVal);
                     }
                 }
-                System.out.println("###################################3");
+                
+                // Log the correlation coeffecient information to the console screen.
+                System.out.println("###################################");
                 System.out.println("Max Vale is: "+ maxVal + " , and Index of it is: " +indexOfMaxVal);
-                System.out.println("And the Key is: "+ (25 - indexOfMaxVal));
+                System.out.println(" ");
+                System.out.println("===================================");
+                System.out.println("And the Key is: "+ (25 - indexOfMaxVal) + "  :) ");
+                System.out.println("===================================");
+                
+                
+                // The Key :) ;) :D 
                 int theKey = 25 - indexOfMaxVal;
-                
-                
-                
-                
                 
                 for(int i=0; i< result.length-1;i++)
                 {
+                    // check if the element does not contain an english letter then pass it.
                     if(! letterDic.containsKey(result[i]))
                     {   
                         finalResult.add(result[i]);
@@ -550,6 +506,7 @@ public class enc extends javax.swing.JFrame {
                     }
                 }
                 
+                // check if the element does not include an English letter
                 for(int i = 0; i< finalResult.size(); i++)
                 {
                     if(finalResult.get(i) == null)
@@ -557,55 +514,49 @@ public class enc extends javax.swing.JFrame {
                         finalResult.set(i, ' ');
                     }
                 }
+                
+                // Log the decrypted text to the console output.
                 for(int i = 0; i< finalResult.size(); i++)
                 {
                     System.out.print(finalResult.get(i));
                 }
                 
-              
+                // close file input stream
                 fis.close();
-            
                 
+                // Export the Decrypted Text To a file 
                 int dialogResult = JOptionPane.showConfirmDialog (null,
                         "Would You Like to Export the Decrypted text to a file? ","Attention Please!",0);
                 if(dialogResult == JOptionPane.YES_OPTION)
                 {
-                    
                     JFileChooser fc = new JFileChooser();
                     if(fc.showSaveDialog(this)==JFileChooser.APPROVE_OPTION)
                     {
-                
-                       
-                            String paths = fc.getSelectedFile().getPath();
-                            FileOutputStream fos = new FileOutputStream(paths);
-                            //byte[] b = ta.getText().getBytes();
-                            for(int i = 0; i< finalResult.size(); i++)
-                            {
-                                fos.write(finalResult.get(i));
-                            }
-                            fos.close();
-                        
+                        String paths = fc.getSelectedFile().getPath();
+                        FileOutputStream fos = new FileOutputStream(paths);
+                        for(int i = 0; i< finalResult.size(); i++)
+                        {
+                            fos.write(finalResult.get(i));
+                        }
+                        fos.close();
                     }
                 }    
-                
             }
             catch(IOException e)
                 {
                     e.printStackTrace();
 
-                }
-        
-            
-             
-            
-            
-        }
-        
-        
-        
+                }   
+        }      
     }//GEN-LAST:event_dec_startActionPerformed
 
-    
+    /**
+     * getSumOfMsgFreq provide double values represents the values of sum of Message letters frequency
+     * to the power of 2.
+     * @param defaultCharsFreq map of the letters
+     * @param indexDic helper map for manipulating the letter maps
+     * @return double sum of map elements.
+     */
     private double getSumOfMsgFreqPow2(Map<Character, Integer> encCharsFreq, Map<Integer, Character> indexDic)
     {
         double sumOfEncCharPoweredToTwo=0;
@@ -616,7 +567,13 @@ public class enc extends javax.swing.JFrame {
         return sumOfEncCharPoweredToTwo;
     }
     
-    
+    /**
+     * getSumOfMsgFreq provide double values represents the values of sum of Default English letters frequency
+     * to the power of 2.
+     * @param defaultCharsFreq map of the letters
+     * @param indexDic helper map for manipulating the letter maps
+     * @return double sum of map elements.
+     */
     private double getSumOfDefuFreqPow2(Map<Character, Integer> defaultCharsFreq, Map<Integer, Character> indexDic)
     {
         double sumOfDefaultPoweredToTwo=0;
@@ -629,7 +586,12 @@ public class enc extends javax.swing.JFrame {
     }
     
     
-    
+    /**
+     * getSumOfMsgFreq provide double values represents the values of sum of Message letters frequency.
+     * @param defaultCharsFreq map of the letters
+     * @param indexDic helper map for manipulating the letter maps
+     * @return double sum of map elements.
+     */
     private int getSumOfMsgFreq(Map<Character, Integer> encCharsFreq, Map<Integer, Character> indexDic)
     {
         int sumOfEncCharFreq = 0;
@@ -640,6 +602,12 @@ public class enc extends javax.swing.JFrame {
         return sumOfEncCharFreq;
     }
     
+    /**
+     * getSumOfDefuFreq provide double values represents the values of sum of default English letters frequency.
+     * @param defaultCharsFreq map of the letters
+     * @param indexDic helper map for manipulating the letter maps
+     * @return double sum of map elements.
+     */
     private int getSumOfDefuFreq(Map<Character, Integer> defaultCharsFreq, Map<Integer, Character> indexDic)
     {
         int sumOfDefaultFreq =0;
@@ -651,7 +619,15 @@ public class enc extends javax.swing.JFrame {
     }
     
     
-    
+    /**
+     * getSumMultFreqDefuActu takes map of default English letters frequency and array list of message frequencies 
+     * and provide an integer result representing the sum of multiplying each element of the map by the its corresponding 
+     * element of the array list.
+     * @param defaultFreq map of default English language letters frequency
+     * @param actualFreq array list of message letters frequency
+     * @param indexDic helper map to can manipulate the default map and message array list of 
+     * @return Integer sum of multiplying each element of the map by each element of the message letters list.
+     */
     private int getSumMultFreqDefuActu(Map<Character, Integer> defaultFreq, ArrayList<Integer> actualFreq, Map<Integer, Character> indexDic)
     {
         int sumOfDefaultAndEncFreq=0;
@@ -662,6 +638,13 @@ public class enc extends javax.swing.JFrame {
         return sumOfDefaultAndEncFreq;
     }
     
+    /**
+     * getmyFreqList is a method take a key and map and shift the map elements
+     * by key times.
+     * @param key the amount of move.
+     * @param encCharsFreq the map to be shifted.
+     * @return ArrayList contains the frequencies of characters sorted after shifting.
+     */
     private ArrayList<Integer> getmyFreqList(int key, Map<Character, Integer> encCharsFreq )
     {
         ArrayList<Integer> newFreqCorr_key1 = new ArrayList<Integer>();
@@ -1390,10 +1373,7 @@ public class enc extends javax.swing.JFrame {
             newFreqCorr_key1.add(encCharsFreq.get('y'));
             newFreqCorr_key1.add(encCharsFreq.get('z'));
             newFreqCorr_key1.add(encCharsFreq.get('a'));
-        }
-        
-        
-                
+        }        
         return newFreqCorr_key1;
     }
     
