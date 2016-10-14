@@ -496,7 +496,7 @@ public class enc extends javax.swing.JFrame {
                 double total = totalTop / totalBottom;
                 
                 
-                System.out.println(total);
+                System.out.println(total); 
                 
                 //System.out.println("The Sum of all freq = " + sumOfEncCharFreq);
                 // get character frequiences ends  
