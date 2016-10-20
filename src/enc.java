@@ -17,6 +17,9 @@ import javax.swing.JOptionPane;
 /**
  *
  * @author mohamedramadan
+ * Java Developer at Hewlett Packard Enterprise
+ * E-mail: mramadan181291@gmail.com
+ * 
  */
 public class enc extends javax.swing.JFrame {
 
