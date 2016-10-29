@@ -55,10 +55,10 @@
               <Component id="jButton2" min="-2" pref="41" max="-2" attributes="0"/>
               <EmptySpace type="separate" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                  <Component id="enc_start" pref="160" max="32767" attributes="0"/>
+                  <Component id="enc_start" pref="85" max="32767" attributes="0"/>
                   <Component id="dec_start" max="32767" attributes="0"/>
               </Group>
-              <EmptySpace pref="69" max="32767" attributes="0"/>
+              <EmptySpace pref="144" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
